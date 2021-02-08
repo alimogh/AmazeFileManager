@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.security.KeyPair;
 import java.security.PublicKey;
 import java.util.Collections;
+import java.util.Objects;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -456,8 +457,10 @@ public class SftpConnectDialog extends DialogFragment {
                     selectedParsedKeyPairName,
                     getPemContents()));
 
-            MainFragment ma = ((MainActivity) getActivity()).getCurrentMainFragment();
-            ma.loadlist(path, false, OpenMode.SFTP);
+            final MainFragment mainFragment =
+                ((MainActivity) getActivity()).getCurrentMainFragment();
+            Objects.requireNonNull(mainFragment);
+            mainFragment.loadlist(path, false, OpenMode.SFTP);
             dismiss();
 
           } else {
